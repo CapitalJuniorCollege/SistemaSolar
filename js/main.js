@@ -63,6 +63,7 @@ var Planet = function(){
       var self = this;
       this.dom_planet.addEventListener("mouseover", function(){
         clearInterval(self.rotation_process_id);
+        self.rotation_process_id = null;
       });
     },
   };
@@ -80,6 +81,14 @@ document.addEventListener("DOMContentLoaded", function(){
     planets[planet_pos].startRotation();
     planets[planet_pos].addEventHandlerToStop();
   }
+  var sun = document.querySelector("#sun");
+  sun.addEventListener("mouseover", function(){
+    for(var planet_pos in planets){
+      if(planets[planet_pos].rotation_process_id === null){
+        planets[planet_pos].startRotation();
+      }
+    }
+  });
 //  clearInterval(process_id);
 });
 
